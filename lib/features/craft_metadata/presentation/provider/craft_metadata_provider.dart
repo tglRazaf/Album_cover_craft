@@ -35,6 +35,14 @@ class CraftMetadataProvider extends ChangeNotifier {
     scrollController = ScrollController();
     await initDir();
     await getDirectoryFiles();
+    scrollController.addListener(_scrollListener);
+  }
+
+  void _scrollListener() async {
+    if (scrollController.offset >= scrollController.position.maxScrollExtent &&
+        !scrollController.position.outOfRange) {
+      await updateFileList();
+    }
   }
 
   Future<void> requestPermission() async {
@@ -42,6 +50,21 @@ class CraftMetadataProvider extends ChangeNotifier {
     await Permission.accessMediaLocation.request();
     await Permission.audio.request();
     await Permission.manageExternalStorage.request();
+  }
+
+  Future<void> updateFileList() async {
+    if (directoryIndex < directories.length) {
+      print('-----------end should update $directoryIndex');
+      for (var fileSysEntity
+          in directories[directoryIndex].listSync(recursive: true)) {
+        if (fileSysEntity is File &&
+            path.extension(fileSysEntity.path).toLowerCase() == '.mp3') {
+          musics.add(await MusicEntity.fromPath(fileSysEntity.path));
+        }
+      }
+      directoryIndex++;
+      notifyListeners();
+    }
   }
 
   Future<void> getDirectoryFiles() async {

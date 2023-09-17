@@ -21,6 +21,7 @@ class _TrackListPageState extends State<TrackListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         title: const Text('Tracks'),
       ),
@@ -34,29 +35,33 @@ class _TrackListPageState extends State<TrackListPage> {
           }
           return CustomScrollView(
             controller: provider.scrollController,
-            physics: const BouncingScrollPhysics(),
             slivers: [
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     final music = provider.musics[index];
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListTile(
-                        leading: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.grey),
-                          padding: const EdgeInsets.all(8),
-                          width: 50,
-                          child: music.metadata.picture != null
-                              ? Image.memory(music.metadata.picture!.data)
-                              : Image.asset('assets/images/album_cover.jpg'),
+                    return ListTile(
+                      tileColor: Colors.black,
+                      leading: Container(
+                        decoration: BoxDecoration(
+                          image: music.metadata.albumArt != null
+                              ? DecorationImage(
+                                  image: MemoryImage(music.metadata.albumArt!),
+                                  fit: BoxFit.cover)
+                              : const DecorationImage(
+                                  image: AssetImage(
+                                    'assets/images/album_cover.jpg',
+                                  ),
+                                    fit: BoxFit.cover
+                                ),
                         ),
-                        title: Text('${music.metadata.title}'),
-                        subtitle: Text('${music.metadata.artist}'),
-                        trailing: const Icon(Icons.more_vert_outlined),
+                        padding: const EdgeInsets.all(8),
+                        width: 50,
                       ),
+                      title: Text(music.trackName),
+                      subtitle: Text(
+                          music.metadata.albumArtistName ?? 'Unknown Artist'),
+                      trailing: const Icon(Icons.more_vert_outlined),
                     );
                   },
                   childCount: provider.musics.length,

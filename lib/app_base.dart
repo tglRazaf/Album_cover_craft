@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'core/configs/no_scroll_glow_config.dart';
 import 'features/craft_metadata/presentation/pages/track_list_page.dart';
 import 'features/craft_metadata/presentation/provider/craft_metadata_provider.dart';
 
@@ -17,10 +18,14 @@ class AppBase extends StatelessWidget {
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
-          colorScheme: const ColorScheme.dark()
-        ),
+            primarySwatch: Colors.blue, colorScheme: const ColorScheme.dark()),
         home: const TrackListPage(),
+        builder: (BuildContext c, Widget? widget) {
+          return ScrollConfiguration(
+            behavior: const NoGlowScrollBehavior(),
+            child: widget!,
+          );
+        },
       ),
     );
   }
