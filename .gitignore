@@ -10,6 +10,9 @@
 .svn/
 migrate_working_dir/
 
+# Editor
+.vscode/
+
 # IntelliJ related
 *.iml
 *.ipr
@@ -31,6 +34,7 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+.fvm/
 
 # Symbolication related
 app.*.symbols
@@ -42,3 +46,5 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+.env

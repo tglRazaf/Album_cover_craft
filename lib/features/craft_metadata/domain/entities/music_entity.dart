@@ -1,37 +1,45 @@
-import 'dart:io';
-
+import 'dart:typed_data';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_media_metadata/flutter_media_metadata.dart';
-import 'package:path/path.dart' as path;
+import 'package:on_audio_query/on_audio_query.dart';
 
 class MusicEntity extends Equatable {
   final String filePath;
-  final Metadata metadata;
+  final Uint8List? albumCover;
+  final SongModel metadata;
 
   const MusicEntity({
     required this.filePath,
+    this.albumCover,
     required this.metadata,
   });
 
   String get trackName {
-    return metadata.trackName ?? path.basename(filePath);
+    return metadata.title;
+  }
+
+  String get artistName {
+    return metadata.artist ?? 'Unknown Artist';
   }
 
   @override
-  List<Object> get props => [filePath, metadata];
+  List<Object?> get props => [filePath, albumCover, metadata];
 
   MusicEntity copyWith({
     String? filePath,
-    Metadata? metadata,
+    Uint8List? albumCover,
+    SongModel? metadata,
   }) {
     return MusicEntity(
       filePath: filePath ?? this.filePath,
+      albumCover: albumCover ?? this.albumCover,
       metadata: metadata ?? this.metadata,
     );
   }
 
-  static Future<MusicEntity> fromPath(String path) async {
-    final metadata = await MetadataRetriever.fromFile(File(path));
-    return MusicEntity(filePath: path, metadata: metadata);
+  static Future<MusicEntity> fromSongModel(SongModel song) async {
+    return MusicEntity(
+      filePath: song.data,
+      metadata: song,
+    );
   }
 }

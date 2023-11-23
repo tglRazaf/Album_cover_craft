@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000677131">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: android_change_package_identifier" time="0.032533748">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: android_change_package_identifier" time="0.004158893">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: android_change_package_identifier" time="0.003289615">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: sed -i &apos;1s/.*/package com.stephano.album_cover_craft_versio_1/&apos; /home/stephano/Documents/album_cover_craft/android/app/src/main/kotlin/com/example/album_cover_craft/MainActivity.kt" time="0.025889829">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: android_update_package_identifier" time="0.001017984">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
