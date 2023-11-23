@@ -18,7 +18,7 @@ Use dart define to replace the app label
     //launch.json
     "configurations": [
         {
-            "name": "creameo (debug mode)",
+            "name": "cover craft (debug mode)",
             "request": "launch",
             "type": "dart",
             "toolArgs": [
